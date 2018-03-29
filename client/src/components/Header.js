@@ -16,11 +16,11 @@ class Header extends Component {
                 );
             default:
                 return [
-                    <li key="3" style={{ margin: '0 10px' }}>
+                    <li key="3">
                         <Link to="/blogs">My Blogs</Link>
                     </li>,
-                    <li key="1" style={{ margin: '0 10px' }}>
-                        <span>{this.props.auth.displayName || 'User'}</span>
+                    <li key="1">
+                        <span className="uk-navbar-item">{this.props.auth.displayName || 'User'}</span>
                     </li>,
                     <li key="2">
                         <a href={'/auth/logout'}>Logout</a>
@@ -31,16 +31,18 @@ class Header extends Component {
 
     render() {
         return (
-            <nav className="indigo">
-                <div className="nav-wrapper">
+            <nav className="uk-navbar uk-light uk-background-secondary header" data-uk-navbar>
+                <div className="uk-navbar-left">
                     <Link
                         to={this.props.auth ? '/blogs' : '/'}
-                        className="left brand-logo"
-                        style={{ marginLeft: '10px' }}
+                        className="uk-navbar-item uk-logo"
                     >
                         Blogster
                     </Link>
-                    <ul className="right">{this.renderContent()}</ul>
+
+                </div>
+                <div className="uk-navbar-right">
+                    <ul className="uk-navbar-nav">{this.renderContent()}</ul>
                 </div>
             </nav>
         );

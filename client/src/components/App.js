@@ -8,6 +8,9 @@ import Landing from './Landing';
 import Dashboard from './Dashboard';
 import BlogNew from './blogs/BlogNew';
 import BlogShow from './blogs/BlogShow';
+import { Footer } from "./Footer";
+
+import '../styles/App.css';
 
 
 class App extends Component {
@@ -17,10 +20,10 @@ class App extends Component {
 
     render() {
         return (
-            <div className="container">
-                <BrowserRouter>
-                    <div>
-                        <Header/>
+            <BrowserRouter>
+                <div className="application-container">
+                    <Header/>
+                    <div className="main main uk-margin-medium-left uk-margin-medium-right uk-padding">
                         <Switch>
                             <Route path="/blogs/new" component={BlogNew}/>
                             <Route exact path="/blogs/:_id" component={BlogShow}/>
@@ -28,8 +31,9 @@ class App extends Component {
                             <Route path="/" component={Landing}/>
                         </Switch>
                     </div>
-                </BrowserRouter>
-            </div>
+                    <Footer/>
+                </div>
+            </BrowserRouter>
         );
     }
 }

@@ -7,9 +7,9 @@ const Dashboard = () => {
     return (
         <div>
             <BlogList/>
-            <div className="fixed-action-btn">
-                <Link to="/blogs/new" className="btn-floating btn-large red">
-                    <i className="material-icons">add</i>
+            <div className="uk-position-fixed uk-position-large uk-position-bottom-right uk-overlay">
+                <Link to="/blogs/new" className="uk-background-primary uk-light uk-padding uk-border-circle">
+                    <span>add</span>
                 </Link>
             </div>
         </div>
