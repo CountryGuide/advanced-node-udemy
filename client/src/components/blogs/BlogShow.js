@@ -16,9 +16,11 @@ class BlogShow extends Component {
         const { title, content } = this.props.blog;
 
         return (
-            <div>
-                <h3>{title}</h3>
-                <p>{content}</p>
+            <div className="uk-card uk-card-default uk-padding">
+                <article className="uk-article">
+                    <h3 className="uk-article-title">{title}</h3>
+                    <p>{content}</p>
+                </article>
             </div>
         );
     }
