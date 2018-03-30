@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_BLOG, FETCH_BLOGS, FETCH_USER } from './types';
+import { FETCH_BLOG, FETCH_BLOGS, FETCH_USER, CLEAR_BLOGS } from './types';
 
 
 export const fetchUser = () => async dispatch => {
@@ -31,4 +31,8 @@ export const fetchBlog = id => async dispatch => {
     const res = await axios.get(`/api/blogs/${id}`);
 
     dispatch({ type: FETCH_BLOG, payload: res.data });
+};
+
+export const clearBlogs = () => dispatch => {
+    dispatch({ type: CLEAR_BLOGS });
 };

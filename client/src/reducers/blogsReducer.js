@@ -1,5 +1,5 @@
 import mapKeys from 'lodash/mapKeys';
-import { FETCH_BLOG, FETCH_BLOGS } from '../actions/types';
+import { FETCH_BLOG, FETCH_BLOGS, CLEAR_BLOGS } from '../actions/types';
 
 
 export default function (state = {}, action) {
@@ -9,6 +9,8 @@ export default function (state = {}, action) {
             return { ...state, [blog._id]: blog };
         case FETCH_BLOGS:
             return { ...state, ...mapKeys(action.payload, '_id') };
+        case CLEAR_BLOGS:
+            return {};
         default:
             return state;
     }
