@@ -17,7 +17,8 @@ mongoose.Query.prototype.cache = function (options = {}) {
 
 mongoose.Query.prototype.exec = async function () {
     if (!this.useCache) {
-        console.log('query:run', this.mongooseCollection.name);
+        console.log('query:run', this.mongooseCollection.name, (new Date()).toLocaleString());
+
         return exec.apply(this, arguments);
     }
 

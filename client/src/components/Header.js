@@ -23,7 +23,7 @@ class Header extends Component {
                         <span className="uk-navbar-item">{this.props.auth.displayName || 'User'}</span>
                     </li>,
                     <li key="2">
-                        <a href={'/auth/logout'}>Logout</a>
+                        <a data-test="logout" href={'/auth/logout'}>Logout</a>
                     </li>
                 ];
         }

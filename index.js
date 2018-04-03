@@ -11,9 +11,14 @@ require('./services/passport');
 require('./services/cache');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.mongoURI, { useMongoClient: true }).then(() => {
-    console.log('Connected to MongoDB');
-});
+mongoose.connect(keys.mongoURI, { useMongoClient: true })
+    .then(
+        () => {
+            console.log('Connected to MongoDB');
+        },
+        (err) => {
+            console.log(err);
+        });
 
 const app = express();
 
@@ -40,6 +45,7 @@ if (['production'].includes(process.env.NODE_ENV)) {
 }
 
 const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, () => {
     console.log(`Listening on port`, PORT);
 });
