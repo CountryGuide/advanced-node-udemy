@@ -1,26 +1,36 @@
-const puppeteer = require('puppeteer');
-const Keygrip   = require('keygrip');
-const Buffer    = require('safe-buffer').Buffer;
-const keys      = require('../config/keys');
+const Page     = require('./helpers/page');
+const mongoose = require('mongoose');
 
+const User = mongoose.model('User');
 
-let browser, page;
+let page;
 
 beforeEach(async () => {
-    browser = await puppeteer.launch({
-        headless: false
-    });
-
-    page = await browser.newPage();
+    page = await Page.build();
     await page.goto('localhost:3000');
 });
 
 afterEach(async () => {
-    await browser.close();
+    await page.close();
+});
+
+afterAll(async () => {
+    await User.remove(
+        {
+            displayName: 'Test'
+        },
+        err => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log('Removed all test users from db');
+            }
+        });
+
 });
 
 test('Logo exists and contains "Blogster" text', async () => {
-    const logoText = await page.$eval('a.uk-logo', el => el.innerHTML);
+    const logoText = await page.getContent('a.uk-logo');
 
     expect(logoText).toEqual('Blogster');
 });
@@ -34,28 +44,9 @@ test('Click Login starts OAuth flow', async () => {
 });
 
 test('When signed in, shows Logout btn', async () => {
-    const id = '5ab91d27ab83611f409fd144';
+    await page.login();
 
-    const sessionObject = {
-        passport: {
-            user: id
-        }
-    };
-    const sessionString = Buffer.from(
-        JSON.stringify(sessionObject)
-    ).toString('base64');
-
-    const keygrip = new Keygrip([keys.cookieKey]);
-    const sig     = keygrip.sign(`session=${sessionString}`);
-
-    await page.setCookie({ name: 'session', value: sessionString });
-    await page.setCookie({ name: 'session.sig', value: sig });
-
-    await page.goto('localhost:3000');
-
-    await page.waitFor('a[data-test="logout"]');
-
-    const logoutText = await page.$eval('a[data-test="logout"]', el => el.innerHTML);
+    const logoutText = await page.getContent('a[data-test="logout"]');
 
     expect(logoutText).toEqual('Logout');
 });
