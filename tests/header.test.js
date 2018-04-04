@@ -22,8 +22,6 @@ afterAll(async () => {
         err => {
             if (err) {
                 console.log(err);
-            } else {
-                console.log('Removed all test users from db');
             }
         });
 
@@ -36,6 +34,7 @@ test('Logo exists and contains "Blogster" text', async () => {
 });
 
 test('Click Login starts OAuth flow', async () => {
+    await page.waitFor('a[data-test="login"]');
     await page.click('a[data-test="login"]');
 
     const url = await page.url();
